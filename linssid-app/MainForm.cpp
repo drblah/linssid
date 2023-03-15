@@ -29,6 +29,7 @@
 #include <qwt_plot_grid.h>
 #include <qwt_symbol.h>
 #include <qwt_plot_marker.h>
+#include <qwt_text.h>
 #include <QPointF>
 #include <qwt_scale_draw.h>
 #include <sys/stat.h>
@@ -1036,7 +1037,7 @@ void MainForm::fillPlots() {
                     MainForm::cellDataRay[tbi].signal ) );
             }
         } else {
-            MainForm::cellDataRay[tbi].pBandCurve->setSamples(0, 0, 0);
+            MainForm::cellDataRay[tbi].pBandCurve->setSamples(static_cast<const double *>(0), static_cast<const double *>(0), 0);
         }
         // now the signal history plot
         int ixStart;
@@ -1055,7 +1056,7 @@ void MainForm::fillPlots() {
                     &(MainForm::cellDataRay[tbi].pHistory->signal[ixStart]), ixLength);
         } else {
 
-            MainForm::cellDataRay[tbi].pTimeCurve->setSamples(0, 0, 0);
+            MainForm::cellDataRay[tbi].pTimeCurve->setSamples(static_cast<const double *>(0), static_cast<const double *>(0), 0);
         }
     }
     MainForm::mainFormWidget.chan24Plot->replot();
@@ -1237,7 +1238,7 @@ void MainForm::extractData(string tl, int &tbi, int &newBSS) {
     } else if (pageBlock == BT_HT_CAPABILITIES && boost::regex_match(tl, sm, boost::regex(".*?HT20/HT40.*",
             boost::regex_constants::icase))) { // Bandwidth HT 40 MHz
         MainForm::cellDataRay[tbi].BW = 40;
-    } else if (pageBlock == BT_VHT_OPERATION && boost::regex_match(tl, sm, boost::regex(".*?\\* channel width:.*?([0-9]+) MHz.*",
+    } else if (pageBlock == BT_VHT_OPERATION && boost::regex_match(tl, sm, boost::regex(".*?\\* channel width:.*?([0-9]+) MHz$",
             boost::regex_constants::icase))) { // Bandwidth VHT
         string tempString = sm[1];
         MainForm::cellDataRay[tbi].BW = atoi(tempString.c_str());

@@ -22,7 +22,7 @@ INCLUDEPATH += /usr/include/boost
 INCLUDEPATH += /usr/include/qt5
 INCLUDEPATH += /usr/include/qwt
 LIBS += -lboost_regex
-LIBS += /usr/lib/libqwt-qt5.so.6
+LIBS += /usr/lib/libqwt.so.6
 QMAKE_CXXFLAGS += -std=c++11
 #
 TARGET = linssid
